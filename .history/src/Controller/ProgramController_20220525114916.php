@@ -27,13 +27,8 @@ class ProgramController extends AbstractController
     #[Route('/show/{id<^[0-9]+$>}', name: 'show')]
     public function show(int $id, ProgramRepository $programRepository): Response
     {
-        $program = $programRepository->findOneBy(['id' => $id]);
+        
 
-        if (!$program) {
-            throw $this->createNotFoundException(
-                'No program with id : '.$id.' found in program\'s table.'
-            );
-        }
         return $this->render('program/show.html.twig', ['program' =>$program]);
     }
 }

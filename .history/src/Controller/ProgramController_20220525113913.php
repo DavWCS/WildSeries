@@ -8,7 +8,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\ProgramRepository;
+use App\Re
 
 #[Route('/program', name: 'program_')]
 class ProgramController extends AbstractController
@@ -24,16 +24,9 @@ class ProgramController extends AbstractController
         );
     }
 
-    #[Route('/show/{id<^[0-9]+$>}', name: 'show')]
-    public function show(int $id, ProgramRepository $programRepository): Response
+    #[Route('/{id}', requirements: ['id'=>'\d+'], methods: ['GET'], name: 'show')]
+    public function show(int $id): Response
     {
-        $program = $programRepository->findOneBy(['id' => $id]);
-
-        if (!$program) {
-            throw $this->createNotFoundException(
-                'No program with id : '.$id.' found in program\'s table.'
-            );
-        }
-        return $this->render('program/show.html.twig', ['program' =>$program]);
+        return $this->render('program/show.html.twig', ['id' =>$id]);
     }
 }

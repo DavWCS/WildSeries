@@ -32,7 +32,9 @@ class ProgramController extends AbstractController
         if (!$program) {
             throw $this->createNotFoundException(
                 'No program with id : '.$id.' found in program\'s table.'
+    
             );
+    
         }
         return $this->render('program/show.html.twig', ['program' =>$program]);
     }
